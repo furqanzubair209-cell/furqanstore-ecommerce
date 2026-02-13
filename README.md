@@ -51,12 +51,6 @@ This project demonstrates modern UI design, dynamic product rendering, cart mana
 
 ---
 
-## 📸 Screenshots
-
-(Add screenshots here once uploaded)
-
----
-
 ## 🎯 Learning Objectives
 
 This project demonstrates:
