@@ -1,96 +1,88 @@
-# furqanstore-ecommerce
-A modern responsive E-Commerce web application built with HTML, CSS, and JavaScript featuring cart system, authentication, filtering, pagination, and localStorage integration.
-# 🛍️ FurqanStore - Modern E-Commerce Web App
+# 🛒 Furqan Store - Full-Stack E-Commerce Website
 
-A fully responsive and feature-rich E-Commerce web application built using **HTML, CSS, and Vanilla JavaScript**.
+A complete full-stack e-commerce web application built using **PHP, MySQL, HTML, CSS, and JavaScript**.
 
-This project demonstrates modern UI design, dynamic product rendering, cart management, authentication system, and localStorage integration.
+This project started as a frontend-only application and has now evolved into a fully functional system with backend integration, APIs, and database management.
 
 ---
 
-## 🚀 Live Features
+## 🚀 Features
 
-- 🔥 Responsive modern UI
-- 🛒 Shopping cart with quantity management
-- 💾 Persistent cart using localStorage
-- 🔐 Login & Signup system
-- 🔍 Product search & category filter
-- 📄 Pagination system
-- ⭐ Product rating display
-- 🎞️ Auto hero slider
-- 🔔 Toast notifications
-- 📱 Fully mobile responsive design
+- 🔐 User Authentication (Login & Registration with password hashing)
+- 🛍️ Product Catalog with categories
+- 🔍 Search & Filter functionality
+- 🛒 Shopping Cart (Add, Update, Remove items)
+- 📦 Order Management (Checkout & Order History)
+- 📱 Fully Responsive UI (Desktop, Tablet, Mobile)
+- ⚡ RESTful API-based backend
+- 🗄️ Secure MySQL database integration
 
 ---
 
-## 🧠 Technologies Used
+## 💻 Tech Stack
 
-- HTML5
-- CSS3 (Flexbox, Grid, CSS Variables)
-- JavaScript (ES6)
-- LocalStorage API
-- Font Awesome Icons
+- **Frontend:** HTML5, CSS3, JavaScript  
+- **Backend:** PHP (RESTful APIs)  
+- **Database:** MySQL  
+- **Server:** XAMPP / Apache  
+
+---
+
+## 🧠 What I Learned
+
+- Full-stack application development  
+- Building REST APIs in PHP  
+- Database design & relationships  
+- Session management & authentication  
+- Security practices (password hashing, input validation)  
+- Connecting frontend with backend using APIs  
+
+---
+
+## 📊 Database Structure
+
+- **users** – Stores user accounts  
+- **products** – Product details  
+- **cart** – Shopping cart items  
+- **orders** – Order records  
+- **order_items** – Products inside each order  
+
+---
+
+## 🔧 API Overview
+
+- `GET /api/products` – Fetch products  
+- `POST /api/auth` – User login/register  
+- `POST /api/cart` – Add item to cart  
+- `PUT /api/cart` – Update cart  
+- `DELETE /api/cart` – Remove item  
+- `POST /api/orders` – Place order  
+
+---
+
+## 📌 Future Improvements
+
+- 💳 Payment gateway integration  
+- 🧑‍💼 Admin dashboard  
+- 📧 Email notifications  
+- ⭐ Product reviews & ratings  
+- ⚡ Performance optimizations  
 
 ---
 
 
----
+## 🤝 Connect
 
-## ⚙️ How It Works
-
-### 🛒 Cart System
-- Products are added dynamically
-- Quantity can be increased/decreased
-- Cart is saved in `localStorage`
-- Total price updates automatically
-
-### 🔐 Authentication
-- Users can sign up and login
-- User data stored in localStorage (for learning purposes)
-- Checkout requires login
+If you liked this project, feel free to give it a ⭐ and connect with me!
 
 ---
 
-## 🎯 Learning Objectives
+## 📌 Note
 
-This project demonstrates:
-
-- DOM manipulation
-- State management
-- Event handling
-- Pagination logic
-- Filtering & searching algorithms
-- Modal implementation
-- UI/UX design principles
+This project is part of my learning journey. I started with frontend development and later expanded it into a full-stack application with backend and APIs.
 
 ---
 
-## ⚠️ Disclaimer
+## 🏷️ Tags
 
-This project is built for educational purposes.
-Passwords are stored in localStorage and are **NOT secure for production use**.
-
----
-
-## 👨‍💻 Author
-
-Muhammad Furqan  
-Computer Science Student  
-Pakistan 🇵🇰
-
----
-
-## ⭐ Future Improvements
-
-- Backend integration (Node.js / Express)
-- Database support (MongoDB / MySQL)
-- Payment gateway integration
-- Admin dashboard
-- Order history system
-- Dark mode
-
----
-
-If you like this project, consider giving it a ⭐ on GitHub!
-
-
+#WebDevelopment #FullStack #PHP #MySQL #Ecommerce #JavaScript #Portfolio
