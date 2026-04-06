@@ -143,4 +143,3 @@ If you liked this project, feel free to ⭐ star this repository and connect wit
 
 ---
 
-This README now accurately reflects your complete project with both **customer** and **admin** functionalities! 🎯
