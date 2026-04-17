@@ -1,145 +1,120 @@
 
-# 🛒 Furqan Store - Complete E-Commerce Platform
 
-A fully functional, production-ready e-commerce web application built with **PHP, MySQL, HTML, CSS, and JavaScript**. The platform supports both **customers** (shopping) and **administrators** (store management).
+# 🛍️ FurqanStore
 
----
+### 🚀 Premium Multi-Vendor E-Commerce Platform
 
-## 🚀 Features
+FurqanStore is a full-stack e-commerce platform built with **Core PHP + MySQL**, featuring **multi-role authentication**, vendor management, order processing, and a modern responsive UI.
 
-### 👤 Customer Features
-- 🔐 User Authentication (Login & Registration with password hashing)
-- 🛍️ Browse Products with categories
-- 🔍 Search & Filter functionality
-- 🛒 Shopping Cart (Add, Update, Remove items)
-- 📦 Checkout with shipping details
-- ✅ Order confirmation with toast notifications
-- 📱 Fully Responsive UI (Desktop, Tablet, Mobile)
-
-### 👑 Admin Features
-- 📊 Admin Dashboard with statistics
-- 📦 Product Management (Add, Edit, Delete products)
-- 🛒 Order Management (View & Update order status)
-- 👥 User Management (View & Delete users)
-- 💰 Revenue tracking
-- 🔒 Separate admin panel access (`/admin`)
+> Designed to simulate a real-world marketplace like Amazon/Daraz with role-based dashboards.
 
 ---
 
-## 💻 Tech Stack
+## 🔥 Key Highlights
 
-| Layer | Technology |
-|-------|------------|
-| **Frontend** | HTML5, CSS3, JavaScript |
-| **Backend** | PHP (RESTful APIs) |
-| **Database** | MySQL |
-| **Server** | XAMPP / Apache / WAMP |
-
----
-
-## 🗄️ Database Structure
-
-| Table | Description |
-|-------|-------------|
-| `users` | User accounts (admin & customers) |
-| `products` | Product catalog (44+ products) |
-| `cart` | Shopping cart items |
-| `orders` | Order records |
-| `order_items` | Products inside each order |
-| `wishlist` | Saved items (optional) |
+* 🔐 Multi-role system (Super Admin, Admin, Vendor, Customer)
+* 🛒 Complete shopping workflow (browse → cart → checkout)
+* 🏪 Vendor marketplace with commission system
+* ⚡ REST-style API architecture
+* 🎨 Modern responsive UI with animations
+* 🛡️ Secure authentication & input handling
 
 ---
 
-## 🔧 API Endpoints
+## 🧩 User Roles
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/products.php` | Fetch products (with filters) |
-| POST | `/api/auth.php?action=login` | User login |
-| POST | `/api/auth.php?action=register` | User registration |
-| POST | `/api/cart.php` | Add item to cart |
-| PUT | `/api/cart.php` | Update cart quantity |
-| DELETE | `/api/cart.php` | Remove item from cart |
-| POST | `/api/orders.php` | Place order |
+| Role               | Capabilities                               |
+| ------------------ | ------------------------------------------ |
+| 👑 **Super Admin** | Full system control, manage admins/vendors |
+| 👤 **Admin**       | Manage products, categories, users         |
+| 🏪 **Vendor**      | Manage own products & track earnings       |
+| 👥 **Customer**    | Shop, cart, orders, history                |
 
 ---
 
-## 📁 Project Structure
+## 🛠️ Tech Stack
+
+* **Backend:** PHP (Core PHP)
+* **Database:** MySQL
+* **Frontend:** HTML, CSS, JavaScript (ES6)
+* **Security:** bcrypt, prepared statements
+* **Architecture:** REST-style APIs
+
+---
+
+## 📂 Project Structure
 
 ```
-furqan_store_premium/
-├── index.php              # Main customer website
-├── config/
-│   └── db.php             # Database connection
-├── api/                   # REST API endpoints
-│   ├── auth.php           # Login/Register
-│   ├── products.php       # Product CRUD
-│   ├── cart.php           # Cart operations
-│   └── orders.php         # Order processing
-├── admin/                 # Admin Panel
-│   ├── index.php          # Dashboard
-│   ├── products.php       # Product management
-│   ├── orders.php         # Order management
-│   └── users.php          # User management
-└── assets/
-    ├── css/               # Stylesheets
-    └── js/                # JavaScript files
+furqanstore/
+│
+├── api/            # Backend APIs
+├── admin/          # Admin panel
+├── vendor/         # Vendor dashboard
+├── auth/           # Authentication system
+├── config/         # Database config
+├── index.php       # Frontend entry
+├── script.js       # JS logic
+├── style.css       # Styling
+└── database.sql    # DB schema
 ```
 
----
 
-## 🔐 Login Credentials
+## 🔑 Demo Accounts
 
-| Role | Email | Password |
-|------|-------|----------|
-| **Admin** | `admin@furqanstore.com` | `password` or `admin123` |
-| **Customer** | Register via Sign Up form | User-created |
-
----
-
-## 🚦 How to Run Locally
-
-1. **Install XAMPP/WAMP** and start Apache & MySQL
-2. **Clone or download** the project to `C:\xampp\htdocs\furqan_store_premium\`
-3. **Import database** using the provided SQL file in phpMyAdmin
-4. **Update database credentials** in `config/db.php`
-5. **Access the website**: `http://localhost/furqan_store_premium/`
-6. **Admin Panel**: `http://localhost/furqan_store_premium/admin/`
+| Role        | Email                                                 | Password |
+| ----------- | ----------------------------------------------------- | -------- |
+| Super Admin | [superadmin@furqan.com](mailto:superadmin@furqan.com) | password |
+| Admin       | [admin@furqan.com](mailto:admin@furqan.com)           | password |
+| Vendor      | [vendor@furqan.com](mailto:vendor@furqan.com)         | password |
+| Customer    | [customer@furqan.com](mailto:customer@furqan.com)     | password |
 
 ---
 
-## 🧠 What I Learned
 
-- Full-stack application development from scratch
-- Building RESTful APIs in PHP
-- Database design & foreign key relationships
-- Session-based authentication
-- Security practices (password hashing, input validation, SQL injection prevention)
-- Connecting frontend JavaScript with backend APIs
-- Admin panel implementation
-- Responsive UI design
+## 🔌 API Overview
 
----
-
-## 📌 Future Improvements
-
-- 💳 Payment gateway integration (Stripe/PayPal)
-- 📧 Email order confirmation
-- 📊 Advanced analytics for admin
-- 🖼️ Image upload for products
-- 📱 Mobile app version
+| Module   | Endpoint         |
+| -------- | ---------------- |
+| Auth     | `/api/auth/`     |
+| Cart     | `/api/cart/`     |
+| Products | `/api/products/` |
+| Orders   | `/api/orders/`   |
+| Contact  | `/api/contact/`  |
 
 ---
 
-## 🤝 Connect
+## 🛡️ Security Features
 
-If you liked this project, feel free to ⭐ star this repository and connect with me!
+* Password hashing (`bcrypt`)
+* SQL Injection prevention
+* Session-based authentication
+* XSS protection
+* Role-based access control
 
 ---
 
-## 🏷️ Tags
+## 🎨 UI Features
 
-#WebDevelopment #FullStack #PHP #MySQL #Ecommerce #JavaScript #AdminPanel #PortfolioProject #RESTAPI
+* Glassmorphism design
+* Animated UI & custom cursor
+* Product filters & search
+* Responsive layout
+* Toast notifications
+
+---
+
+
+
+## 👨‍💻 Author
+
+**Muhammad Furqan**
+Computer Science Student
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
 
 ---
 
