@@ -37,84 +37,153 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Product - Vendor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - FurqanStore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #fff; }
-        .vendor-container { display: flex; min-height: 100vh; }
-        .vendor-sidebar { width: 280px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); padding: 2rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.1); }
-        .vendor-sidebar nav a { display: block; padding: 0.8rem 1rem; color: rgba(255,255,255,0.7); text-decoration: none; border-radius: 12px; margin-bottom: 0.5rem; }
-        .vendor-sidebar nav a:hover { background: rgba(99,102,241,0.2); color: white; }
-        .vendor-main { flex: 1; padding: 2rem; }
-        .form-container { background: rgba(255,255,255,0.03); border-radius: 20px; padding: 2rem; max-width: 600px; border: 1px solid rgba(255,255,255,0.1); }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; color: rgba(255,255,255,0.7); }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; font-family: inherit; }
-        .btn-submit { background: linear-gradient(135deg, #06b6d4, #3b82f6); border: none; padding: 0.8rem 2rem; border-radius: 12px; color: white; cursor: pointer; font-weight: 600; }
-        .alert { padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
-        .alert-success { background: rgba(16,185,129,0.2); color: #10b981; }
-        .alert-error { background: rgba(239,68,68,0.2); color: #ef4444; }
-    </style>
+    <link rel="stylesheet" href="../style.css">
 </head>
-<body>
-<div class="vendor-container">
-    <div class="vendor-sidebar">
-        <h2><i class="fas fa-store"></i> Vendor Panel</h2>
-        <nav>
-            <a href="dashboard.php"><i class="fas fa-chart-line"></i> Dashboard</a>
-            <a href="add_product.php" style="background: rgba(99,102,241,0.2);"><i class="fas fa-plus-circle"></i> Add Product</a>
-            <a href="manage_products.php"><i class="fas fa-box"></i> Manage Products</a>
-            <a href="orders.php"><i class="fas fa-shopping-cart"></i> Orders</a>
-            <a href="../index.php"><i class="fas fa-arrow-left"></i> Back to Store</a>
-        </nav>
-    </div>
-    <div class="vendor-main">
-        <h1 style="margin-bottom: 2rem;">Add New Product</h1>
-        
-        <?php if (isset($success)): ?>
-        <div class="alert alert-success"><?php echo $success; ?></div>
-        <?php endif; ?>
-        <?php if (isset($error)): ?>
-        <div class="alert alert-error"><?php echo $error; ?></div>
-        <?php endif; ?>
-        
-        <div class="form-container">
-            <form method="POST">
-                <div class="form-group">
-                    <label>Product Name *</label>
-                    <input type="text" name="name" required>
+<body class="dark-mode">
+<div class="app">
+    <!-- Premium Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Premium Sidebar (Same as main page but for vendor) -->
+    <aside class="premium-sidebar">
+        <div class="sidebar-glow"></div>
+        <div class="sidebar-content">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fas fa-store"></i></div>
+                <div class="logo-text">
+                    <span class="logo-furqan">Vendor</span>
+                    <span class="logo-store">Panel</span>
                 </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <textarea name="description" rows="4"></textarea>
+            </div>
+
+            <div class="user-card">
+                <div class="user-avatar">
+                    <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($_SESSION['full_name']); ?>&background=6366f1&color=fff&size=80" alt="Vendor">
+                    <div class="online-dot"></div>
                 </div>
-                <div class="form-group">
-                    <label>Price (PKR) *</label>
-                    <input type="number" name="price" step="0.01" required>
+                <div class="user-info-panel">
+                    <h4><?php echo htmlspecialchars($_SESSION['full_name']); ?></h4>
+                    <p>Verified Vendor</p>
                 </div>
-                <div class="form-group">
-                    <label>Stock *</label>
-                    <input type="number" name="stock" value="0" required>
-                </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <select name="category_id">
-                        <option value="0">Select Category</option>
-                        <?php foreach ($categories as $cat): ?>
-                        <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Image URL</label>
-                    <input type="text" name="image_url" placeholder="https://images.unsplash.com/...">
-                </div>
-                <button type="submit" class="btn-submit">Add Product</button>
-            </form>
+            </div>
+
+            <nav class="premium-nav">
+                <a href="dashboard.php" class="nav-link">
+                    <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+                    <span>Dashboard</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="add_product.php" class="nav-link active">
+                    <div class="nav-icon"><i class="fas fa-plus-circle"></i></div>
+                    <span>Add Product</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="manage_products.php" class="nav-link">
+                    <div class="nav-icon"><i class="fas fa-box"></i></div>
+                    <span>Manage Products</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="orders.php" class="nav-link">
+                    <div class="nav-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <span>Orders</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="../index.php" class="nav-link">
+                    <div class="nav-icon"><i class="fas fa-arrow-left"></i></div>
+                    <span>Back to Store</span>
+                    <div class="nav-indicator"></div>
+                </a>
+            </nav>
         </div>
-    </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div>
+                <h1 class="reveal stagger-1">Add New Product</h1>
+                <p class="reveal stagger-2">Create a new listing for your store</p>
+            </div>
+            <a href="../auth/logout.php" class="btn-premium" style="background: var(--danger);">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </header>
+
+        <div class="reveal stagger-3">
+            <?php if (isset($success)): ?>
+            <div class="alert-premium success" style="background: var(--success-bg); color: var(--success); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--success);">
+                <i class="fas fa-check-circle"></i> <?php echo $success; ?>
+            </div>
+            <?php endif; ?>
+            <?php if (isset($error)): ?>
+            <div class="alert-premium error" style="background: rgba(239, 68, 68, 0.1); color: var(--danger); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--danger);">
+                <i class="fas fa-exclamation-circle"></i> <?php echo $error; ?>
+            </div>
+            <?php endif; ?>
+
+            <div class="card-premium" style="max-width: 800px;">
+                <form method="POST">
+                    <div class="form-group-premium">
+                        <label for="name">Product Name *</label>
+                        <input type="text" id="name" name="name" class="input-premium" placeholder="e.g. Premium Wireless Headphones" required>
+                    </div>
+
+                    <div class="form-group-premium">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" class="textarea-premium" rows="5" placeholder="Describe your product details..."></textarea>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group-premium">
+                            <label for="price">Price (PKR) *</label>
+                            <input type="number" id="price" name="price" step="0.01" class="input-premium" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group-premium">
+                            <label for="stock">Initial Stock *</label>
+                            <input type="number" id="stock" name="stock" value="0" class="input-premium" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group-premium">
+                        <label for="category_id">Product Category *</label>
+                        <select id="category_id" name="category_id" class="select-premium" required>
+                            <option value="0">Select Category</option>
+                            <?php foreach ($categories as $cat): ?>
+                            <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <small style="color: var(--text-muted); display: block; margin-top: 5px;">Choose the best category for visibility</small>
+                    </div>
+
+                    <div class="form-group-premium">
+                        <label for="image_url">Product Image URL</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="image_url" name="image_url" class="input-premium" placeholder="https://images.unsplash.com/...">
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <button type="submit" class="btn-premium" style="width: 100%;">
+                            <i class="fas fa-plus-circle"></i> Publish Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
 </div>
+
+<script src="../script.js"></script>
+<script>
+    // Add reveal animations
+    document.addEventListener('DOMContentLoaded', () => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(el => el.classList.add('active'));
+    });
+</script>
 </body>
 </html>
