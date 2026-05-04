@@ -24,6 +24,8 @@ $products = $conn->query("
     <title>Manage Products - Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #fff; }
@@ -44,8 +46,12 @@ $products = $conn->query("
         .badge-pending { background: rgba(245,158,11,0.2); color: #f59e0b; }
     </style>
 </head>
-<body>
+<body class="dark-mode">
 <div class="admin-container">
+    <!-- Premium Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
     <div class="admin-sidebar">
         <h2><i class="fas fa-crown"></i> Admin Panel</h2>
         <nav>
@@ -89,5 +95,6 @@ $products = $conn->query("
         </div>
     </div>
 </div>
+<script src="../script.js"></script>
 </body>
 </html>
