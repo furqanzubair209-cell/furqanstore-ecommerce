@@ -51,79 +51,212 @@ $recentOrders = $conn->query("
     <title>Admin Dashboard - FurqanStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #fff; }
-        .admin-container { display: flex; min-height: 100vh; }
-        .admin-sidebar { width: 280px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); padding: 2rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.1); }
-        .admin-sidebar h2 { margin-bottom: 2rem; font-size: 1.5rem; }
-        .admin-sidebar h2 i { color: #6366f1; margin-right: 10px; }
-        .admin-sidebar nav a { display: block; padding: 0.8rem 1rem; color: rgba(255,255,255,0.7); text-decoration: none; border-radius: 12px; margin-bottom: 0.5rem; transition: all 0.3s; }
-        .admin-sidebar nav a:hover, .admin-sidebar nav a.active { background: rgba(99,102,241,0.2); color: white; }
-        .admin-sidebar nav a i { width: 24px; margin-right: 10px; }
-        .admin-main { flex: 1; padding: 2rem; overflow-y: auto; }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .stat-card { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.1); }
-        .stat-card i { font-size: 2rem; color: #6366f1; margin-bottom: 1rem; }
-        .stat-card h3 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-        .stat-card p { color: rgba(255,255,255,0.6); }
-        .recent-table { background: rgba(255,255,255,0.03); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
-        .recent-table table { width: 100%; border-collapse: collapse; }
-        .recent-table th, .recent-table td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .recent-table th { color: #6366f1; font-weight: 600; }
-        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; background: rgba(16,185,129,0.2); color: #10b981; }
-        .logout-btn { background: rgba(239,68,68,0.2); color: #ef4444; border: none; padding: 0.5rem 1rem; border-radius: 12px; cursor: pointer; }
-        .logout-btn:hover { background: rgba(239,68,68,0.3); }
-    </style>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
-<body>
-<div class="admin-container">
-    <div class="admin-sidebar">
-        <h2><i class="fas fa-crown"></i> Admin Panel</h2>
-        <nav>
-            <a href="dashboard.php" class="active"><i class="fas fa-chart-line"></i> Dashboard</a>
-            <a href="manage_users.php"><i class="fas fa-users"></i> Manage Users</a>
-            <a href="manage_products.php"><i class="fas fa-box"></i> Manage Products</a>
-            <a href="approve_vendors.php"><i class="fas fa-store"></i> Approve Vendors</a>
-            <a href="../index.php"><i class="fas fa-arrow-left"></i> Back to Store</a>
-        </nav>
-    </div>
-    <div class="admin-main">
-        <div class="admin-header">
-            <h1>Dashboard</h1>
+<body class="dark-mode">
+<div class="app">
+    <!-- Premium Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Premium Sidebar -->
+    <aside class="premium-sidebar">
+        <div class="sidebar-glow"></div>
+        <div class="sidebar-content">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fas fa-crown"></i></div>
+                <div class="logo-text">
+                    <span class="logo-furqan">Admin</span>
+                    <span class="logo-store">Panel</span>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff&size=80" alt="Admin">
+                    <div class="online-dot"></div>
+                </div>
+                <div class="user-info-panel">
+                    <h4><?php echo htmlspecialchars($_SESSION['full_name']); ?></h4>
+                    <p>System Administrator</p>
+                </div>
+            </div>
+
+            <nav class="premium-nav">
+                <a href="dashboard.php" class="nav-link active">
+                    <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+                    <span>Dashboard</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="manage_users.php" class="nav-link">
+                    <div class="nav-icon"><i class="fas fa-users"></i></div>
+                    <span>Manage Users</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="manage_products.php" class="nav-link">
+                    <div class="nav-icon"><i class="fas fa-box"></i></div>
+                    <span>Manage Products</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="approve_vendors.php" class="nav-link">
+                    <div class="nav-icon"><i class="fas fa-store"></i></div>
+                    <span>Approve Vendors</span>
+                    <div class="nav-indicator"></div>
+                </a>
+                <a href="../index.php" class="nav-link">
+                    <div class="nav-icon"><i class="fas fa-arrow-left"></i></div>
+                    <span>Back to Store</span>
+                    <div class="nav-indicator"></div>
+                </a>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
             <div>
-                <span style="margin-right: 1rem;">Welcome, <?php echo htmlspecialchars($_SESSION['full_name']); ?></span>
-                <a href="../auth/logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <h1 class="reveal stagger-1">Admin Overview</h1>
+                <p class="reveal stagger-2">Welcome back, <?php echo htmlspecialchars($_SESSION['full_name']); ?></p>
+            </div>
+            <div class="header-actions">
+                <a href="../auth/logout.php" class="btn-premium" style="background: var(--danger);">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid-premium reveal stagger-3">
+            <div class="card-premium stat-card-premium">
+                <div class="stat-icon" style="background: rgba(99, 102, 241, 0.1);"><i class="fas fa-users"></i></div>
+                <div class="stat-info">
+                    <h3><?php echo $stats['total_users']; ?></h3>
+                    <p>Total Users</p>
+                </div>
+            </div>
+            <div class="card-premium stat-card-premium">
+                <div class="stat-icon" style="background: rgba(6, 182, 212, 0.1);"><i class="fas fa-box"></i></div>
+                <div class="stat-info">
+                    <h3><?php echo $stats['total_products']; ?></h3>
+                    <p>Total Products</p>
+                </div>
+            </div>
+            <div class="card-premium stat-card-premium">
+                <div class="stat-icon" style="background: rgba(236, 72, 153, 0.1);"><i class="fas fa-shopping-cart"></i></div>
+                <div class="stat-info">
+                    <h3><?php echo $stats['total_orders']; ?></h3>
+                    <p>Total Orders</p>
+                </div>
+            </div>
+            <div class="card-premium stat-card-premium">
+                <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1);"><i class="fas fa-wallet"></i></div>
+                <div class="stat-info">
+                    <h3>PKR <?php echo number_format($stats['total_revenue']); ?></h3>
+                    <p>Revenue</p>
+                </div>
             </div>
         </div>
-        
-        <div class="stats-grid">
-            <div class="stat-card"><i class="fas fa-users"></i><h3><?php echo $stats['total_users']; ?></h3><p>Total Users</p></div>
-            <div class="stat-card"><i class="fas fa-box"></i><h3><?php echo $stats['total_products']; ?></h3><p>Total Products</p></div>
-            <div class="stat-card"><i class="fas fa-shopping-cart"></i><h3><?php echo $stats['total_orders']; ?></h3><p>Total Orders</p></div>
-            <div class="stat-card"><i class="fas fa-dollar-sign"></i><h3>PKR <?php echo number_format($stats['total_revenue']); ?></h3><p>Total Revenue</p></div>
-            <div class="stat-card"><i class="fas fa-clock"></i><h3><?php echo $stats['pending_vendors']; ?></h3><p>Pending Vendors</p></div>
-        </div>
-        
-        <div class="recent-table">
-            <h3 style="padding: 1rem;">Recent Orders</h3>
-            <table>
-                <thead><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
-                <tbody>
-                    <?php foreach ($recentOrders as $order): ?>
-                    <tr>
-                        <td>#<?php echo $order['id']; ?></td>
-                        <td><?php echo htmlspecialchars($order['full_name']); ?></td>
-                        <td>PKR <?php echo number_format($order['total']); ?></td>
-                        <td><span class="status-badge"><?php echo ucfirst($order['status']); ?></span></td>
-                        <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
+
+        <!-- Global Analytics Chart -->
+        <div class="reveal stagger-3">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title"><i class="fas fa-globe"></i> Global Sales Analytics</h3>
+                    <div class="chart-actions">
+                        <select class="select-premium" style="padding: 5px 10px; font-size: 0.8rem;">
+                            <option>All Vendors</option>
+                        </select>
+                    </div>
+                </div>
+                <canvas id="adminGlobalChart"></canvas>
             </div>
         </div>
-    </div>
+
+        <div class="reveal stagger-4">
+            <h2 class="section-title">Recent <span>System Activity</span></h2>
+            <div class="table-premium-container">
+                <table class="table-premium">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                            <th>Order Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($recentOrders)): ?>
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 3rem; color: var(--text-muted);">No orders found.</td>
+                        </tr>
+                        <?php else: ?>
+                            <?php foreach ($recentOrders as $order): ?>
+                            <tr>
+                                <td><span style="font-weight: 600; color: var(--primary);">#<?php echo $order['id']; ?></span></td>
+                                <td><?php echo htmlspecialchars($order['full_name']); ?></td>
+                                <td><span style="font-weight: 700;">PKR <?php echo number_format($order['total']); ?></span></td>
+                                <td>
+                                    <span class="badge-premium" style="background: var(--success-bg); color: var(--success);">
+                                        <?php echo ucfirst($order['status']); ?>
+                                    </span>
+                                </td>
+                                <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 </div>
+
+<script src="../script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(el => el.classList.add('active'));
+
+        // Initialize Global Chart
+        const ctx = document.getElementById('adminGlobalChart');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Total Revenue (PKR)',
+                        data: [450000, 620000, 580000, 850000, 920000, 1100000],
+                        backgroundColor: 'rgba(6, 182, 212, 0.2)',
+                        borderColor: '#06b6d4',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>
