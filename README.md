@@ -1,120 +1,104 @@
-
-
-# 🛍️ FurqanStore
-
-### 🚀 Premium Multi-Vendor E-Commerce Platform
-
-FurqanStore is a full-stack e-commerce platform built with **Core PHP + MySQL**, featuring **multi-role authentication**, vendor management, order processing, and a modern responsive UI.
-
-> Designed to simulate a real-world marketplace like Amazon/Daraz with role-based dashboards.
+**FurqanStore** is a state-of-the-art, premium luxury e-commerce platform designed to provide a "Wow" factor through its cinematic UI and seamless user experience. Built with a robust PHP/MySQL backend and a modern vanilla frontend, it offers a full-featured marketplace for vendors and customers alike.
 
 ---
 
-## 🔥 Key Highlights
+## ✨ Key Features
 
-* 🔐 Multi-role system (Super Admin, Admin, Vendor, Customer)
-* 🛒 Complete shopping workflow (browse → cart → checkout)
-* 🏪 Vendor marketplace with commission system
-* ⚡ REST-style API architecture
-* 🎨 Modern responsive UI with animations
-* 🛡️ Secure authentication & input handling
+### 🎨 Visual Excellence
+- **Cinematic UI**: Stunning glassmorphism effects, vibrant gradients, and smooth micro-animations.
+- **Dynamic Dark Mode**: A premium dark-themed interface that feels alive and interactive.
+- **Responsive Design**: Fully optimized for Desktop, Tablet, and Mobile devices.
+- **Custom Cursor & Interactions**: High-end interactive elements that react to user movement.
+
+### 🏪 Marketplace Functionality
+- **Multi-Vendor Support**: Dedicated dashboards for vendors to manage products and track orders.
+- **Advanced Product Filtering**: Search and filter by categories, vendors, price, and ratings.
+- **Shopping Cart System**: Real-time cart management with a sleek slide-out modal.
+- **Product Gallery**: High-quality product displays with detailed information.
+
+### 🛠 Administrative & Security
+- **Secure Authentication**: Multi-role login system (Super Admin, Vendor, Customer).
+- **Role-Based Access Control**: Protected routes and dashboards for different user types.
+- **Support Center**: Integrated FAQ and support ticket system for customer assistance.
+- **Database Security**: PDO/MySQLi prepared statements to prevent SQL injection.
 
 ---
 
-## 🧩 User Roles
+## 🚀 Tech Stack
 
-| Role               | Capabilities                               |
-| ------------------ | ------------------------------------------ |
-| 👑 **Super Admin** | Full system control, manage admins/vendors |
-| 👤 **Admin**       | Manage products, categories, users         |
-| 🏪 **Vendor**      | Manage own products & track earnings       |
-| 👥 **Customer**    | Shop, cart, orders, history                |
+- **Frontend**: 
+  - HTML5 & CSS3 (Vanilla)
+  - JavaScript (ES6+)
+  - FontAwesome & Google Fonts (Plus Jakarta Sans)
+- **Backend**: 
+  - PHP 8.x
+  - MySQL Database
+- **Server**: 
+  - XAMPP / Apache
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠 Setup Instructions
 
-* **Backend:** PHP (Core PHP)
-* **Database:** MySQL
-* **Frontend:** HTML, CSS, JavaScript (ES6)
-* **Security:** bcrypt, prepared statements
-* **Architecture:** REST-style APIs
+### Prerequisites
+- [XAMPP](https://www.apachefriends.org/index.html) or any PHP/MySQL local server environment.
+
+### Installation Steps
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/furqanstore.git
+   ```
+2. **Move to Server Directory**:
+   Copy the `furqanstore` folder to your `C:\xampp\htdocs\` directory.
+3. **Database Setup**:
+   - Open **phpMyAdmin**.
+   - Create a new database named `furqanstore_db`.
+   - Import the database schema (if provided) or create the necessary tables.
+4. **Configuration**:
+   - Open `config/db.php`.
+   - Update `DB_USER` and `DB_PASS` to match your local MySQL credentials.
+5. **Launch**:
+   - Start Apache and MySQL in XAMPP.
+   - Visit `http://localhost/furqanstore/` in your browser.
+
+---
+
+## 👥 User Roles & Access
+
+| Role | Access Level | Responsibilities |
+| :--- | :--- | :--- |
+| **Super Admin** | Full Access | Manage users, vendors, and site-wide settings. |
+| **Vendor** | Merchant Access | Upload products, manage inventory, view orders. |
+| **Customer** | User Access | Browse shop, manage cart, track orders, support. |
 
 ---
 
 ## 📂 Project Structure
 
-```
+```text
 furqanstore/
-│
-├── api/            # Backend APIs
-├── admin/          # Admin panel
-├── vendor/         # Vendor dashboard
-├── auth/           # Authentication system
-├── config/         # Database config
-├── index.php       # Frontend entry
-├── script.js       # JS logic
-├── style.css       # Styling
-└── database.sql    # DB schema
+├── actions/      # PHP logic for various operations
+├── admin/        # Admin panel & management scripts
+├── api/          # API endpoints for dynamic data
+├── auth/         # Login, Register, and Session logic
+├── config/       # Database & Site configurations
+├── vendor/       # Vendor-specific dashboards & orders
+├── script.js     # Main frontend logic & animations
+├── style.css     # Global premium styles & theme
+├── index.php     # Main landing page
+└── README.md     # Project documentation
 ```
 
+---
 
-## 🔑 Demo Accounts
+## 📄 License
 
-| Role        | Email                                                 | Password |
-| ----------- | ----------------------------------------------------- | -------- |
-| Super Admin | [superadmin@furqan.com](mailto:superadmin@furqan.com) | password |
-| Admin       | [admin@furqan.com](mailto:admin@furqan.com)           | password |
-| Vendor      | [vendor@furqan.com](mailto:vendor@furqan.com)         | password |
-| Customer    | [customer@furqan.com](mailto:customer@furqan.com)     | password |
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
+## 👨‍💻 Developer
 
-## 🔌 API Overview
+Developed with ❤️ by **Furqan**.
 
-| Module   | Endpoint         |
-| -------- | ---------------- |
-| Auth     | `/api/auth/`     |
-| Cart     | `/api/cart/`     |
-| Products | `/api/products/` |
-| Orders   | `/api/orders/`   |
-| Contact  | `/api/contact/`  |
-
----
-
-## 🛡️ Security Features
-
-* Password hashing (`bcrypt`)
-* SQL Injection prevention
-* Session-based authentication
-* XSS protection
-* Role-based access control
-
----
-
-## 🎨 UI Features
-
-* Glassmorphism design
-* Animated UI & custom cursor
-* Product filters & search
-* Responsive layout
-* Toast notifications
-
----
-
-
-
-## 👨‍💻 Author
-
-**Muhammad Furqan**
-Computer Science Student
-
----
-
-## ⭐ Support
-
-If you like this project, give it a ⭐ on GitHub!
-
----
-
+> "Elevating the e-commerce experience, one pixel at a time."
