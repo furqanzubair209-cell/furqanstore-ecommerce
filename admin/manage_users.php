@@ -18,6 +18,8 @@ $users = $conn->query("SELECT * FROM users ORDER BY created_at DESC")->fetch_all
     <title>Manage Users - Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #fff; }
@@ -42,8 +44,12 @@ $users = $conn->query("SELECT * FROM users ORDER BY created_at DESC")->fetch_all
         .back-link { display: inline-block; margin-bottom: 1rem; color: #6366f1; text-decoration: none; }
     </style>
 </head>
-<body>
+<body class="dark-mode">
 <div class="admin-container">
+    <!-- Premium Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
     <div class="admin-sidebar">
         <h2><i class="fas fa-crown"></i> Admin Panel</h2>
         <nav>
@@ -93,5 +99,6 @@ $users = $conn->query("SELECT * FROM users ORDER BY created_at DESC")->fetch_all
         </div>
     </div>
 </div>
+<script src="../script.js"></script>
 </body>
 </html>
