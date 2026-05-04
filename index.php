@@ -16,7 +16,11 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark-mode">
+  <!-- Theme Toggle - Floating Button -->
+  <div class="theme-toggle-floating" id="themeToggleFloating" onclick="toggleTheme()">
+    <i class="fas fa-moon" id="themeIconFloating"></i>
+  </div>
 
 <div class="app">
   <!-- Premium Cursor -->
@@ -28,6 +32,10 @@ session_start();
     <div class="gradient-sphere"></div>
     <div class="gradient-sphere2"></div>
     <div class="gradient-sphere3"></div>
+    <div class="gradient-sphere4"></div>
+    <div class="glass-float shape-1"></div>
+    <div class="glass-float shape-2"></div>
+    <div class="glass-float shape-3"></div>
   </div>
 
   <!-- Premium Sidebar -->
@@ -116,6 +124,15 @@ session_start();
       </div>
       
       <div class="header-actions-premium">
+        <!-- Theme Toggle in Header -->
+        <div class="theme-toggle-header" onclick="toggleTheme()">
+          <i class="fas fa-sun"></i>
+          <div class="toggle-switch">
+            <span class="toggle-slider"></span>
+          </div>
+          <i class="fas fa-moon"></i>
+        </div>
+        
         <div class="notification-bell">
           <i class="fas fa-bell"></i>
           <span class="notification-dot"></span>
@@ -143,10 +160,10 @@ session_start();
           <div class="hero-slide active" data-slide="0">
             <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1556740714-a8395b3a74dd?w=1600')"></div>
             <div class="hero-content">
-              <div class="hero-badge">Limited Edition</div>
-              <h1 class="hero-title">Luxury <span>Collection</span> 2026</h1>
-              <p class="hero-subtitle">Experience premium quality with exclusive discounts up to 50% off</p>
-              <div class="hero-buttons">
+              <div class="hero-badge reveal stagger-1">Limited Edition</div>
+              <h1 class="hero-title reveal stagger-2">Luxury <span>Collection</span> 2026</h1>
+              <p class="hero-subtitle reveal stagger-3">Experience premium quality with exclusive discounts up to 50% off</p>
+              <div class="hero-buttons reveal stagger-4">
                 <button class="btn-primary-glow" onclick="showPage('products')">Shop Now →</button>
                 <button class="btn-outline-glow" onclick="openAuthModal('signup')">Join VIP →</button>
               </div>
@@ -182,28 +199,28 @@ session_start();
 
       <!-- Stats Section -->
       <div class="stats-section">
-        <div class="stat-card">
+        <div class="stat-card reveal stagger-1">
           <i class="fas fa-truck-fast"></i>
           <div>
             <h3>Free Shipping</h3>
             <p>On orders over PKR 5,000</p>
           </div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card reveal stagger-2">
           <i class="fas fa-shield-alt"></i>
           <div>
             <h3>Secure Payment</h3>
             <p>100% protected</p>
           </div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card reveal stagger-3">
           <i class="fas fa-undo-alt"></i>
           <div>
             <h3>Easy Returns</h3>
             <p>30 days return policy</p>
           </div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card reveal stagger-4">
           <i class="fas fa-headset"></i>
           <div>
             <h3>24/7 Support</h3>
@@ -213,7 +230,7 @@ session_start();
       </div>
 
       <!-- Premium Categories -->
-      <div class="section-premium">
+      <div class="section-premium reveal">
         <div class="section-header-premium">
           <div>
             <span class="section-badge">Categories</span>
@@ -225,7 +242,7 @@ session_start();
       </div>
 
       <!-- Featured Products -->
-      <div class="section-premium">
+      <div class="section-premium reveal">
         <div class="section-header-premium">
           <div>
             <span class="section-badge">Best Sellers</span>
@@ -271,65 +288,136 @@ session_start();
     </div>
 
     <div id="contactPage" class="page">
-      <div class="contact-premium">
-        <div class="contact-info-premium">
-          <div class="contact-header">
-            <span class="section-badge">Get in Touch</span>
-            <h2>We'd love to hear <span>from you</span></h2>
-            <p>Have questions? Our team is here to help you 24/7</p>
+      <div class="page-header-premium">
+        <div>
+          <span class="section-badge">Support Center</span>
+          <h1>How can we <span>help you?</span></h1>
+          <p>Search our help articles or get in touch with our experts</p>
+        </div>
+      </div>
+
+      <!-- Support Categories -->
+      <div class="support-grid reveal">
+        <div class="support-category tilt-card" onclick="openSupportArticle('tracking')">
+          <i class="fas fa-box-open"></i>
+          <h3>Order Tracking</h3>
+          <p>Check the status of your luxury purchases</p>
+        </div>
+        <div class="support-category tilt-card" onclick="openSupportArticle('shipping')">
+          <i class="fas fa-truck"></i>
+          <h3>Shipping & Delivery</h3>
+          <p>Information about our worldwide shipping</p>
+        </div>
+        <div class="support-category tilt-card" onclick="openSupportArticle('returns')">
+          <i class="fas fa-undo"></i>
+          <h3>Returns & Refunds</h3>
+          <p>Simple and easy return policy details</p>
+        </div>
+        <div class="support-category tilt-card" onclick="openSupportArticle('security')">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Payment Security</h3>
+          <p>How we protect your premium transactions</p>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="section-premium reveal">
+        <div class="section-header-premium">
+          <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+        </div>
+        <div class="faq-section">
+          <div class="faq-item" onclick="this.classList.toggle('active')">
+            <div class="faq-question">
+              <span>How long does international shipping take?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              Our premium international shipping typically takes 3-7 business days depending on your location. All orders are fully insured and tracked.
+            </div>
           </div>
-          <div class="contact-cards">
-            <div class="contact-card-premium">
-              <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-              <div>
-                <h4>Visit Us</h4>
-                <p>123 Luxury Boulevard,<br>Lahore, Pakistan</p>
-              </div>
+          <div class="faq-item" onclick="this.classList.toggle('active')">
+            <div class="faq-question">
+              <span>What is your return policy for luxury items?</span>
+              <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="contact-card-premium">
-              <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-              <div>
-                <h4>Call Us</h4>
-                <p>+92 300 1234567<br>+92 42 12345678</p>
-              </div>
+            <div class="faq-answer">
+              We offer a 30-day complimentary return policy for all items in their original condition. Return shipping is on us for all VIP members.
             </div>
-            <div class="contact-card-premium">
-              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-              <div>
-                <h4>Email Us</h4>
-                <p>support@furqanstore.com<br>premium@furqanstore.com</p>
-              </div>
+          </div>
+          <div class="faq-item" onclick="this.classList.toggle('active')">
+            <div class="faq-question">
+              <span>Are the products on FurqanStore authentic?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              Every item sold on FurqanStore is guaranteed 100% authentic. We work directly with brands and authorized vendors to ensure the highest quality.
             </div>
           </div>
         </div>
-        <div class="contact-form-premium">
-          <form id="contactForm" onsubmit="sendMessage(event)">
-            <div class="form-row">
-              <div class="input-group-premium">
-                <i class="fas fa-user"></i>
-                <input type="text" id="contactName" placeholder="Your Name" required>
+      </div>
+
+      <!-- Support Ticket Form -->
+      <div class="section-premium reveal">
+        <div class="support-ticket-area">
+          <div class="contact-info-premium">
+            <div class="contact-header">
+              <span class="section-badge">Direct Contact</span>
+              <h2>Still need <span>help?</span></h2>
+              <p>Our dedicated support team is available 24/7 to assist you with any inquiries.</p>
+            </div>
+            <div class="contact-cards">
+              <div class="contact-card-premium reveal stagger-1">
+                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                <div>
+                  <h4>Priority Line</h4>
+                  <p>+92 300 1234567</p>
+                </div>
+              </div>
+              <div class="contact-card-premium reveal stagger-2">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <div>
+                  <h4>Email Support</h4>
+                  <p>support@furqanstore.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-premium reveal">
+            <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">Open a Support Ticket</h3>
+            <form id="contactForm" onsubmit="sendMessage(event)">
+              <div class="form-row">
+                <div class="input-group-premium">
+                  <i class="fas fa-user"></i>
+                  <input type="text" id="contactName" placeholder="Your Name" required>
+                </div>
+                <div class="input-group-premium">
+                  <i class="fas fa-envelope"></i>
+                  <input type="email" id="contactEmail" placeholder="Email Address" required>
+                </div>
               </div>
               <div class="input-group-premium">
-                <i class="fas fa-envelope"></i>
-                <input type="email" id="contactEmail" placeholder="Email Address" required>
+                <i class="fas fa-tag"></i>
+                <select id="contactSubject" class="select-premium" style="width: 100%; border: none; background: none; color: inherit; padding-left: 35px;">
+                  <option value="order">Order Inquiry</option>
+                  <option value="delivery">Delivery Issue</option>
+                  <option value="payment">Payment Problem</option>
+                  <option value="other">Other Inquiry</option>
+                </select>
               </div>
+              <div class="input-group-premium">
+                <i class="fas fa-comment"></i>
+                <textarea id="contactMessage" rows="4" placeholder="How can we help you?..." required></textarea>
+              </div>
+              <button type="submit" class="btn-submit">
+                <span>Submit Ticket</span>
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+            <div id="contactSuccess" class="success-message hidden">
+              <i class="fas fa-check-circle"></i>
+              <p>Ticket submitted! We'll get back to you shortly.</p>
             </div>
-            <div class="input-group-premium">
-              <i class="fas fa-tag"></i>
-              <input type="text" id="contactSubject" placeholder="Subject">
-            </div>
-            <div class="input-group-premium">
-              <i class="fas fa-comment"></i>
-              <textarea id="contactMessage" rows="5" placeholder="Your Message..." required></textarea>
-            </div>
-            <button type="submit" class="btn-submit">
-              <span>Send Message</span>
-              <i class="fas fa-paper-plane"></i>
-            </button>
-          </form>
-          <div id="contactSuccess" class="success-message hidden">
-            <i class="fas fa-check-circle"></i>
-            <p>Message sent! We'll respond within 24 hours.</p>
           </div>
         </div>
       </div>
@@ -391,69 +479,108 @@ session_start();
 
 <div id="authModal" class="premium-modal">
   <div class="modal-glass auth-glass">
+    <div class="auth-visual">
+      <div class="auth-visual-content">
+        <i class="fas fa-crown"></i>
+        <h2>Elevate Your Experience</h2>
+        <p>Join FurqanStore to discover exclusive luxury collections and personalized shopping.</p>
+      </div>
+    </div>
+    
+    <div class="auth-content">
+      <button class="modal-close" onclick="closeAuthModal()" style="position: absolute; top: 20px; right: 20px;"><i class="fas fa-times"></i></button>
+      
+      <div class="auth-header">
+        <h2 id="authModalTitle">Welcome Back</h2>
+        <p id="authModalDesc">Enter your credentials to access your account</p>
+      </div>
+      
+      <div id="loginForm" class="auth-form-premium">
+        <div class="input-group-premium">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="loginEmail" placeholder="Email Address">
+        </div>
+        <div class="input-group-premium">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="loginPassword" placeholder="Password">
+        </div>
+        <button class="btn-primary-glow" onclick="loginUser()">Sign In</button>
+        <p class="auth-switch-premium">New here? <a onclick="showSignupForm()">Create Account</a></p>
+      </div>
+      
+      <div id="signupForm" class="auth-form-premium hidden">
+        <div class="input-group-premium">
+          <i class="fas fa-user"></i>
+          <input type="text" id="signupName" placeholder="Full Name">
+        </div>
+        <div class="form-row">
+          <div class="input-group-premium">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="signupEmail" placeholder="Email Address">
+          </div>
+          <div class="input-group-premium">
+            <i class="fas fa-phone"></i>
+            <input type="tel" id="signupPhone" placeholder="Phone Number">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="input-group-premium">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="signupPassword" placeholder="Password">
+          </div>
+          <div class="input-group-premium">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="signupConfirm" placeholder="Confirm Password">
+          </div>
+        </div>
+        <div class="input-group-premium">
+          <i class="fas fa-user-tag"></i>
+          <select id="signupRole">
+            <option value="customer">Customer</option>
+            <option value="vendor">Vendor (Sell Products)</option>
+          </select>
+        </div>
+        <button class="btn-primary-glow" onclick="signupUser()">Create Account</button>
+        <p class="auth-switch-premium">Already have an account? <a onclick="showLoginForm()">Sign In</a></p>
+      </div>
+      
+      <div class="demo-accounts">
+        <p><i class="fas fa-info-circle"></i> Demo Accounts:</p>
+        <div class="demo-badges">
+          <span>👑 superadmin@furqan.com / admin123</span>
+          <span>🏪 vendor@furqan.com / vendor123</span>
+          <span>👤 customer@furqan.com / customer123</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="supportArticleModal" class="premium-modal">
+  <div class="modal-glass" style="max-width: 800px;">
     <div class="modal-header-premium">
-      <h2 id="authModalTitle">Welcome Back</h2>
-      <button class="modal-close" onclick="closeAuthModal()"><i class="fas fa-times"></i></button>
+      <h2 id="supportArticleTitle"><i class="fas fa-info-circle"></i> Support Article</h2>
+      <button class="modal-close" onclick="closeSupportArticleModal()"><i class="fas fa-times"></i></button>
     </div>
-    
-    <div id="loginForm" class="auth-form-premium">
-      <div class="input-group-premium">
-        <i class="fas fa-envelope"></i>
-        <input type="email" id="loginEmail" placeholder="Email Address">
-      </div>
-      <div class="input-group-premium">
-        <i class="fas fa-lock"></i>
-        <input type="password" id="loginPassword" placeholder="Password">
-      </div>
-      <button class="btn-primary-glow" onclick="loginUser()">Sign In</button>
-      <p class="auth-switch-premium">New here? <a onclick="showSignupForm()">Create Account</a></p>
+    <div id="supportArticleContent" class="support-article-body" style="padding: 2rem; color: var(--text-primary);">
+      <!-- Content will be injected here -->
     </div>
-    
-    <div id="signupForm" class="auth-form-premium hidden">
-      <div class="input-group-premium">
-        <i class="fas fa-user"></i>
-        <input type="text" id="signupName" placeholder="Full Name">
-      </div>
-      <div class="input-group-premium">
-        <i class="fas fa-envelope"></i>
-        <input type="email" id="signupEmail" placeholder="Email Address">
-      </div>
-      <div class="input-group-premium">
-        <i class="fas fa-phone"></i>
-        <input type="tel" id="signupPhone" placeholder="Phone Number">
-      </div>
-      <div class="input-group-premium">
-        <i class="fas fa-lock"></i>
-        <input type="password" id="signupPassword" placeholder="Password">
-      </div>
-      <div class="input-group-premium">
-        <i class="fas fa-lock"></i>
-        <input type="password" id="signupConfirm" placeholder="Confirm Password">
-      </div>
-      <div class="input-group-premium">
-        <i class="fas fa-user-tag"></i>
-        <select id="signupRole">
-          <option value="customer">Customer</option>
-          <option value="vendor">Vendor (Sell Products)</option>
-        </select>
-      </div>
-      <button class="btn-primary-glow" onclick="signupUser()">Create Account</button>
-      <p class="auth-switch-premium">Already have an account? <a onclick="showLoginForm()">Sign In</a></p>
-    </div>
-    
-    <div class="demo-accounts">
-      <p><i class="fas fa-info-circle"></i> Demo Accounts:</p>
-      <div class="demo-badges">
-        <span>👑 superadmin@furqan.com / admin123</span>
-        <span>🏪 vendor@furqan.com / vendor123</span>
-        <span>👤 customer@furqan.com / customer123</span>
-      </div>
+    <div class="modal-footer-premium" style="padding: 1.5rem; border-top: 1px solid var(--border-light); text-align: right;">
+      <button class="btn-primary-glow" onclick="closeSupportArticleModal()">Close Article</button>
     </div>
   </div>
 </div>
 
 <div id="toast" class="premium-toast"></div>
 
+<div class="mobile-nav-premium">
+  <a href="#" onclick="showPage('home')" class="mobile-nav-item active"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="#" onclick="showPage('products')" class="mobile-nav-item"><i class="fas fa-store"></i><span>Shop</span></a>
+  <a href="#" onclick="showPage('contact')" class="mobile-nav-item"><i class="fas fa-headset"></i><span>Support</span></a>
+  <a href="#" onclick="openCartModal()" class="mobile-nav-item"><i class="fas fa-shopping-bag"></i><span>Cart</span></a>
+</div>
+
 <script src="script.js"></script>
+
 </body>
 </html>
