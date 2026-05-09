@@ -185,6 +185,7 @@ $recentOrders = $conn->query("
                             <th>Total Amount</th>
                             <th>Status</th>
                             <th>Order Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -199,11 +200,29 @@ $recentOrders = $conn->query("
                                 <td><?php echo htmlspecialchars($order['full_name']); ?></td>
                                 <td><span style="font-weight: 700;">PKR <?php echo number_format($order['total']); ?></span></td>
                                 <td>
-                                    <span class="badge-premium" style="background: var(--success-bg); color: var(--success);">
+                                    <span class="badge-premium" style="background: <?php 
+                                        echo $order['status'] === 'delivered' ? 'var(--success-bg)' : ($order['status'] === 'pending' ? 'var(--warning-bg, rgba(245,158,11,0.15))' : 'var(--nav-hover-bg)'); 
+                                    ?>; color: <?php 
+                                        echo $order['status'] === 'delivered' ? 'var(--success)' : ($order['status'] === 'pending' ? 'var(--warning)' : 'var(--primary-light)'); 
+                                    ?>;">
                                         <?php echo ucfirst($order['status']); ?>
                                     </span>
                                 </td>
                                 <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
+                                <td>
+                                    <?php if ($order['status'] === 'pending'): ?>
+                                    <form action="../actions/order_actions.php" method="POST" style="display:inline;">
+                                        <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                        <input type="hidden" name="action" value="update_status">
+                                        <input type="hidden" name="status" value="delivered">
+                                        <button type="submit" class="btn-premium" style="padding: 5px 12px; font-size: 0.75rem; background: var(--success);">
+                                            <i class="fas fa-check"></i> Deliver
+                                        </button>
+                                    </form>
+                                    <?php else: ?>
+                                    <span style="color: var(--text-muted); font-size: 0.8rem;">No Actions</span>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
