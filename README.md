@@ -153,11 +153,8 @@ Images of project in light mode to watch project in dark mode watch vedio:
 <img width="1366" height="613" alt="1000048506" src="https://github.com/user-attachments/assets/bc81cf31-9996-422e-a40e-5872c4796f2a" />
 <img width="1366" height="619" alt="1000048507" src="https://github.com/user-attachments/assets/2deef28b-d6eb-4a08-9d1e-e43fa8d1d4a4" />
 <img width="1358" height="628" alt="1000048508" src="https://github.com/user-attachments/assets/73c3f6e9-16fe-47ae-895b-45616557ea63" />
-
 <img width="1366" height="619" alt="1000048509" src="https://github.com/user-attachments/assets/3dd9330a-7525-4a77-973d-08d393fa103c" />
 <img width="1362" height="624" alt="1000048510" src="https://github.com/user-attachments/assets/87629f1f-d714-40e9-8d07-7e73843afb33" />
-
-
 <img width="1362" height="615" alt="1000048511" src="https://github.com/user-attachments/assets/afed30f5-82e1-446b-bbe1-64c3501c37bb" />
 <img width="1360" height="626" alt="1000048512" src="https://github.com/user-attachments/assets/9ae369a6-9acb-4473-970d-dfb190f782b0" />
 <img width="1364" height="619" alt="1000048513" src="https://github.com/user-attachments/assets/664421c3-6d68-486c-81bb-a14c65de2dd8" />
