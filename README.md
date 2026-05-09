@@ -123,7 +123,7 @@ To explore the platform without creating an account, use these pre-configured cr
 ## 📸 Screenshots
 Images of project in light mode to watch project in dark mode watch vedio:
 
-
+https://www.linkedin.com/posts/muhammad-furqan-228807304_fullstackdeveloper-php-mysql-ugcPost-7458976092637507584-8r6n?utm_source=share&utm_medium=member_android&rcm=ACoAAE230IAB62KSuKJH7HE3fWLCicOAtBcyDXc
 
 <img width="1366" height="617" alt="1000048481" src="https://github.com/user-attachments/assets/662a068f-2c44-4d0b-b1d4-469aff3f952f" />
 <img width="1366" height="615" alt="1000048482" src="https://github.com/user-attachments/assets/9ebde347-2865-48cd-ab56-e4ee34d9d14d" />
