@@ -221,25 +221,37 @@ function nextSlide() { const slides = document.querySelectorAll('.hero-slide'); 
 function prevSlide() { const slides = document.querySelectorAll('.hero-slide'); currentSlide = (currentSlide - 1 + slides.length) % slides.length; goToSlide(currentSlide); }
 
 // ============== CATEGORIES & VENDORS ==============
-function loadCategories() {
-  const categories = [...new Set(products.map(p => p.category))];
+async function loadCategories() {
+  const result = await apiCall('products', 'get_categories.php', 'GET');
+  if (!result.success) return;
+
+  const categories = result.data;
   const categorySelect = document.getElementById('categoryFilter');
   const sidebarCategories = document.getElementById('premiumCategories');
+
   if (categorySelect) {
     categorySelect.innerHTML = '<option value="all">All Categories</option>';
-    categories.forEach(cat => { const option = document.createElement('option'); option.value = cat; option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1); categorySelect.appendChild(option); });
+    categories.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat.id;
+      option.textContent = cat.name;
+      categorySelect.appendChild(option);
+    });
   }
-  if (sidebarCategories) sidebarCategories.innerHTML = categories.map(cat => `<a onclick="filterByCategory('${cat}')">${cat.charAt(0).toUpperCase() + cat.slice(1)}</a>`).join('');
-}
-function loadVendors() {
-  const vendors = [...new Set(products.map(p => p.vendor))];
-  const vendorSelect = document.getElementById('vendorFilter');
-  if (vendorSelect) {
-    vendorSelect.innerHTML = '<option value="all">All Vendors</option>';
-    vendors.forEach(vendor => { const option = document.createElement('option'); option.value = vendor; option.textContent = vendor; vendorSelect.appendChild(option); });
+
+  if (sidebarCategories) {
+    sidebarCategories.innerHTML = categories.map(cat => `
+      <a onclick="filterByCategoryId('${cat.id}')">${cat.name}</a>
+    `).join('');
   }
 }
-function filterByCategory(category) { const categoryFilter = document.getElementById('categoryFilter'); if (categoryFilter) categoryFilter.value = category; filterProducts(); showPage('products'); }
+
+function filterByCategoryId(categoryId) {
+  const categoryFilter = document.getElementById('categoryFilter');
+  if (categoryFilter) categoryFilter.value = categoryId;
+  filterProducts();
+  showPage('products');
+}
 function showPage(pageName) {
   const main = document.querySelector('.premium-main');
   if (main) {
@@ -274,15 +286,24 @@ function showPage(pageName) {
 }
 
 // ============== PRODUCTS ==============
+async function loadVendors() {
+  const result = await apiCall('products', 'get_vendors.php', 'GET');
+  if (!result.success) return;
+
+  const vendors = result.data;
+  const vendorSelect = document.getElementById('vendorFilter');
+  if (vendorSelect) {
+    vendorSelect.innerHTML = '<option value="all">All Vendors</option>';
+    vendors.forEach(vendor => {
+      const option = document.createElement('option');
+      option.value = vendor.id;
+      option.textContent = vendor.name;
+      vendorSelect.appendChild(option);
+    });
+  }
+}
+
 function filterProducts() {
-  const search = document.getElementById('globalSearch')?.value.toLowerCase() || '';
-  const category = document.getElementById('categoryFilter')?.value || 'all';
-  const vendor = document.getElementById('vendorFilter')?.value || 'all';
-  const sort = document.getElementById('sortBy')?.value || 'default';
-  filteredProducts = products.filter(p => { const matchSearch = p.name.toLowerCase().includes(search); const matchCategory = category === 'all' || p.category === category; const matchVendor = vendor === 'all' || p.vendor === vendor; return matchSearch && matchCategory && matchVendor; });
-  if (sort === 'price_asc') filteredProducts.sort((a, b) => a.price - b.price);
-  else if (sort === 'price_desc') filteredProducts.sort((a, b) => b.price - a.price);
-  else if (sort === 'rating') filteredProducts.sort((a, b) => a.rating - b.rating);
   currentPage = 1;
   loadProductsToGrid();
 }
@@ -303,13 +324,9 @@ async function loadProductsToGrid() {
   const result = await apiCall('products', `get_products.php?search=${encodeURIComponent(search)}&category=${category}&vendor=${encodeURIComponent(vendor)}&sort=${sort}&page=${currentPage}`, 'GET');
 
   let productsToShow = [], totalPages = 1;
-  if (result.success && result.data && result.data.products && result.data.products.length > 0) {
+  if (result.success && result.data && result.data.products) {
     productsToShow = result.data.products;
     totalPages = result.data.total_pages || 1;
-  } else {
-    const start = (currentPage - 1) * itemsPerPage;
-    productsToShow = filteredProducts.slice(start, start + itemsPerPage);
-    totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   }
 
   if (productsToShow.length === 0) {
@@ -357,19 +374,48 @@ function initTiltEffect() {
   });
 }
 
-function loadFeaturedProducts() {
+async function loadFeaturedProducts() {
   const grid = document.getElementById('featuredProducts');
   if (!grid) return;
-  const featured = products.filter(p => p.badge).slice(0, 8);
-  grid.innerHTML = featured.map((p, i) => `<div class="product-premium-card reveal stagger-${(i % 4) + 1}">${p.badge ? `<div class="product-badge ${p.badge}">${p.badge === 'hot' ? '🔥 Hot' : p.badge === 'new' ? '✨ New' : p.badge === 'sale' ? '💰 Sale' : '⭐ Best'}</div>` : ''}<img src="${p.image}" class="product-image" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400?text=No+Image'"><div class="product-info"><h3 class="product-title">${escapeHtml(p.name)}</h3><p class="product-price">PKR ${p.price.toLocaleString()}</p><button class="add-to-cart-premium" onclick="addToCart(${p.id})">Add to Cart</button></div></div>`).join('');
+
+  // Show Skeleton Loaders
+  grid.innerHTML = Array(4).fill(0).map(() => `<div class="product-premium-card skeleton" style="height:350px"></div>`).join('');
+
+  const result = await apiCall('products', 'get_products.php?sort=rating&limit=8', 'GET');
+  if (!result.success || !result.data.products) return;
+
+  const featured = result.data.products;
+  grid.innerHTML = featured.map((p, i) => `
+    <div class="product-premium-card reveal stagger-${(i % 4) + 1}">
+      ${p.badge ? `<div class="product-badge ${p.badge}">${p.badge === 'hot' ? '🔥 Hot' : p.badge === 'new' ? '✨ New' : p.badge === 'sale' ? '💰 Sale' : '⭐ Best'}</div>` : ''}
+      <img src="${p.image_url || p.image}" class="product-image" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400?text=No+Image'">
+      <div class="product-info">
+        <h3 class="product-title">${escapeHtml(p.name)}</h3>
+        <p class="product-price">PKR ${Number(p.price).toLocaleString()}</p>
+        <button class="add-to-cart-premium" onclick="addToCart(${p.id})">Add to Cart</button>
+      </div>
+    </div>
+  `).join('');
   initAnimations();
 }
-function renderHomeCategories() {
+async function renderHomeCategories() {
   const grid = document.getElementById('homeCategories');
   if (!grid) return;
-  const categories = [...new Set(products.map(p => p.category))];
+
+  const result = await apiCall('products', 'get_categories.php', 'GET');
+  if (!result.success || !result.data) return;
+
+  const categories = result.data;
   const icons = { electronics: "fas fa-laptop", fashion: "fas fa-tshirt", footwear: "fas fa-shoe-prints", audio: "fas fa-headphones", appliances: "fas fa-blender", sports: "fas fa-bicycle" };
-  grid.innerHTML = categories.map((cat, i) => `<div class="category-premium-card reveal stagger-${(i % 4) + 1}" onclick="filterByCategory('${cat}')"><i class="${icons[cat] || 'fas fa-tag'}"></i><h3>${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3><p>${products.filter(p => p.category === cat).length} products</p></div>`).join('');
+
+  grid.innerHTML = categories.map((cat, i) => `
+    <div class="category-premium-card reveal stagger-${(i % 4) + 1}" onclick="filterByCategoryId('${cat.id}')">
+      <i class="${icons[cat.name.toLowerCase()] || 'fas fa-tag'}"></i>
+      <h3>${cat.name}</h3>
+      <p>Explore luxury items</p>
+    </div>
+  `).join('');
+  initAnimations();
 }
 function generateStars(rating) { let stars = ''; for (let i = 1; i <= 5; i++) stars += i <= rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>'; return stars; }
 function renderPagination(totalPages) {
@@ -683,7 +729,7 @@ function closeSupportArticleModal() {
 window.toggleTheme = toggleTheme;
 window.showPage = showPage;
 window.filterProducts = filterProducts;
-window.filterByCategory = filterByCategory;
+window.filterByCategoryId = filterByCategoryId;
 window.addToCart = addToCart;
 window.updateQuantity = updateQuantity;
 window.removeFromCart = removeFromCart;
