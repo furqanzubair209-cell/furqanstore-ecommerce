@@ -43,27 +43,41 @@ foreach ($cartItems as $item) {
     $total += $item['price'] * $item['quantity'];
 }
 
-// Create order
-$status = ($payment_method === 'cod') ? 'pending' : 'processing';
-$orderStmt = $conn->prepare("INSERT INTO orders (user_id, total, status, payment_method, shipping_address) VALUES (?, ?, ?, ?, ?)");
-$orderStmt->bind_param("idsss", $user_id, $total, $status, $payment_method, $shipping_address);
-$orderStmt->execute();
-$order_id = $conn->insert_id;
+// Start Transaction
+$conn->begin_transaction();
 
-// Create order items
-foreach ($cartItems as $item) {
-    $commission = 10;
-    $vendor_earning = $item['price'] * $item['quantity'] * (1 - $commission/100);
-    
-    $itemStmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, vendor_id, quantity, price, vendor_earning) VALUES (?, ?, ?, ?, ?, ?)");
-    $itemStmt->bind_param("iiiiid", $order_id, $item['product_id'], $item['vendor_id'], $item['quantity'], $item['price'], $vendor_earning);
-    $itemStmt->execute();
+try {
+    // Create order
+    $status = ($payment_method === 'cod') ? 'pending' : 'processing';
+    $orderStmt = $conn->prepare("INSERT INTO orders (user_id, total, status, payment_method, shipping_address) VALUES (?, ?, ?, ?, ?)");
+    $orderStmt->bind_param("idsss", $user_id, $total, $status, $payment_method, $shipping_address);
+    $orderStmt->execute();
+    $order_id = $conn->insert_id;
+
+    // Create order items
+    foreach ($cartItems as $item) {
+        $commission = 10;
+        $vendor_earning = $item['price'] * $item['quantity'] * (1 - $commission/100);
+        
+        $itemStmt = $conn->prepare("INSERT INTO order_items (order_id, product_id, vendor_id, quantity, price, vendor_earning) VALUES (?, ?, ?, ?, ?, ?)");
+        $itemStmt->bind_param("iiiiid", $order_id, $item['product_id'], $item['vendor_id'], $item['quantity'], $item['price'], $vendor_earning);
+        $itemStmt->execute();
+        
+        // Note: The stock reduction is now handled by the SQL TRIGGER `tr_after_order_item_insert`
+    }
+
+    // Clear cart
+    $clearStmt = $conn->prepare("DELETE FROM cart_items WHERE user_id = ?");
+    $clearStmt->bind_param("i", $user_id);
+    $clearStmt->execute();
+
+    // Commit Transaction
+    $conn->commit();
+    echo json_encode(['success' => true, 'message' => 'Order placed successfully!']);
+
+} catch (Exception $e) {
+    // Rollback on error
+    $conn->rollback();
+    echo json_encode(['success' => false, 'message' => 'Order failed: ' . $e->getMessage()]);
 }
-
-// Clear cart
-$clearStmt = $conn->prepare("DELETE FROM cart_items WHERE user_id = ?");
-$clearStmt->bind_param("i", $user_id);
-$clearStmt->execute();
-
-echo json_encode(['success' => true, 'message' => 'Order placed successfully!']);
 ?>
