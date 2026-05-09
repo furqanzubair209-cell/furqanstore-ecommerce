@@ -547,9 +547,9 @@ session_start();
       <div class="demo-accounts">
         <p><i class="fas fa-info-circle"></i> Demo Accounts:</p>
         <div class="demo-badges">
-          <span>👑 superadmin@furqan.com / admin123</span>
-          <span>🏪 vendor@furqan.com / vendor123</span>
-          <span>👤 customer@furqan.com / customer123</span>
+          <span>👑 superadmin@furqan.com / password</span>
+          <span>🏪 vendor@furqan.com / password</span>
+          <span>👤 customer@furqan.com / password</span>
         </div>
       </div>
     </div>
