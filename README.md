@@ -99,13 +99,11 @@ WHERE id IN (
 3. **Database Configuration**:
    - Open **phpMyAdmin** (`http://localhost/phpmyadmin`).
    - Create a new database named `furqanstore_db`.
-   - Import the following SQL files in order:
-     1. `furqanstore_db full sql code.sql` (Schema & Base Data)
-     2. `furqanstore_db insert.sql` (Sample Products & Categories)
-     3. `database_enhancements.sql` (Advanced Triggers & Procedures)
-4. **Configure Connection**:
+   - Import the following SQL file 
+     1. `furqanstore_db full sql code.sql` 
+2. **Configure Connection**:
    Update `config/db_connect.php` (if necessary) with your database credentials.
-5. **Run the Project**:
+3. **Run the Project**:
    Start Apache and MySQL in XAMPP and visit `http://localhost/furqanstore`.
 
 ---
