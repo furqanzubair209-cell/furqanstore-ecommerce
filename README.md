@@ -168,6 +168,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 
 ## 📧 Contact
-**Project Owner** - Muhammad Furqan(furqan209@gmail.com)
-
+Project Owner - Muhammad Furqan (furqanzubair209@gmail.com)
 
