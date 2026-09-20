@@ -92,7 +92,7 @@ WHERE id IN (
 ### Steps
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/furqanzubair209-cell/furqanstore.git
+   git clone https://github.com/furqanzubair209-cell/furqanstore-ecommerce/.git
    ```
 2. **Move to Web Directory**:
    Copy the `furqanstore` folder to your `C:\xampp\htdocs\` directory.
